@@ -1,0 +1,32 @@
+#!/usr/bin/env osascript
+on run argv
+
+  set msg to "iTunes Commands from Terminal:\n"
+  set msg to msg & "  start, play               - Start/Play iTunes\n"
+  set msg to msg & "  stop, pause               - Stop/Pause iTunes\n"
+  set msg to msg & "  next                      - Next Song\n"
+  set msg to msg & "  prev                      - Prev Song\n"
+  set msg to msg & "  shuffle                   - Shuffle\n"
+  set msg to msg & "  repeat                    - Repeat\n"
+
+  if count of argv is equal to 0 then
+    return msg
+  end if
+  set command to item 1 of argv
+  using terms from application "iTunes"
+    if command is equal to "start" or command is equal to "play" then
+      tell application "iTunes" to play
+      return "iTunes is now playing"
+    else if command is equal to "stop" or command is equal to "pause" then
+      tell application "iTunes" to pause
+      return "iTunes has stopped playing"
+    else if command is equal to "next" then
+      tell application "iTunes" to next track
+    else if command is equal to "prev" then
+      tell application "iTunes" to previous track
+    else
+      log "\nCommand not recognized.\n"
+      return msg
+    end if
+  end using terms from
+end run
